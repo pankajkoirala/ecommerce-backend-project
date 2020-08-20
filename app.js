@@ -8,9 +8,13 @@ const cloudinary=require("cloudinary").v2
 require("dotenv").config
 
 
+//aarko body parser haleko
+app.use(bodyParser.urlencoded({extended:true}))
 
 //middleware for body parser
 app.use(bodyParser.json())
+
+
 
 //middleware for cors
 app.use(cors())
@@ -21,15 +25,20 @@ cloudinary.config({
   api_key:891382289963618,
   api_secret:"3pKrB-1JvjrDFNKUNpMURXUtVJ0"
 })
-console.log();
+const router=express.Router()
+
+
 
 //router ecommerce
 const ecommerceRouter=require("./router/ecommerce")
 app.use("/api",ecommerceRouter)
 
+// router order
+const orderRouter=require("./router/order")
+app.use("/api",orderRouter)
 
 // routes
-app.get("/",(req,res)=>{
+app.post("/",(req,res)=>{
   res.send("we are on home");
 }) 
 
