@@ -13,9 +13,14 @@ const orderList = mongoose.Schema({
     type: Number,
     required: true,
   },
+  information:{
+type:String,
+required:true
+  },
   date: {
     type: Date,
-    default: Date.now,
+    default:Date
+    
   },
   order: [{ product: Object, count: Number }],
 });
