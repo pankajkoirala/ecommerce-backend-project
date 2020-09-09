@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const Joi = require("joi");
+
 
 const EcommerceSchema = mongoose.Schema({
   category: {
@@ -21,7 +23,7 @@ const EcommerceSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  warranty:{
+  warranty: {
     type: String,
     required: true,
   },
@@ -30,6 +32,36 @@ const EcommerceSchema = mongoose.Schema({
   },
 });
 
+const Ecommerce = mongoose.model("Ecommerce", EcommerceSchema);
 
-
-module.exports = mongoose.model("Ecommerce", EcommerceSchema);
+const createEcommerceValidator = payload => {
+  const  schema = Joi.object({
+    category: Joi.string().required(),
+    productName: Joi.string()
+      .required(),
+      productCost: Joi.number().required(),
+      productDetail: Joi.string().required(),
+      date: Joi.date(),
+      warranty: Joi.string().required(),
+      photo:  Joi.string().required(),
+  });
+  return schema.validate(payload)
+};
+const updateEcommerceValidator = payload => {
+  const schema = Joi.object({
+    category: Joi.string().required(),
+    productName: Joi.string()
+      .required(),
+      productCost: Joi.number().required(),
+      productDetail: Joi.string().required(),
+      date: Joi.date(),
+      warranty: Joi.string().required(),
+      photo:  Joi.string().required(),
+  });
+  return schema.validate(payload);
+};
+module.exports = {
+  Ecommerce,
+  createEcommerceValidator,
+  updateEcommerceValidator
+};

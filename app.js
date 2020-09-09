@@ -25,7 +25,6 @@ cloudinary.config({
   api_key:891382289963618,
   api_secret:"3pKrB-1JvjrDFNKUNpMURXUtVJ0"
 })
-const router=express.Router()
 
 
 
@@ -37,6 +36,14 @@ app.use("/api",ecommerceRouter)
 const orderRouter=require("./router/order")
 app.use("/api",orderRouter)
 
+//contactus
+const contactus=require("./router/contactus")
+app.use("/api",contactus)
+
+// //signup
+const SignupRouter=require("./router/signup")
+app.use("/api",SignupRouter)
+
 // routes
 app.post("/",(req,res)=>{
   res.send("we are on home");
@@ -46,5 +53,5 @@ app.post("/",(req,res)=>{
 
 // how to we start lession to the port
 app.listen(process.env.port,()=>{
-  console.log(`server runnlig at${process.env.port}`);
+  console.log(`server running at${process.env.port}`);
 });
